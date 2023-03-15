@@ -68,6 +68,7 @@ history.plot_curves(loss_name="BCE")
 ~~~
 ***
 ## Display Tracked Information in `history` While Training
+
 - **Initialize** Instance Before Loop :
 ~~~python
 from Tracker import HistoricalTraining
@@ -122,7 +123,7 @@ for epoch in range(NBR_EPOCHS):
     history.display_info(current_epoch=epoch,
                           reccurance=100)
 ~~~
-![](https://i.imgur.com/F8sKjpR.png)
+![](https://i.imgur.com/6AD6Tt9.png)
 ***
 ## Diagnostic Training Process
 Use at the End or While Pytorch Training Loop
@@ -180,7 +181,6 @@ history.diagnostic(average=False, metric_name="F1")
 history.diagnostic(average=True, metric_name="F1")
 ~~~
 ![](https://i.imgur.com/F8sKjpR.png)
-![](https://i.imgur.com/VRCesZo.png)
 ***
 ## Plot Training & Validation Curves 
 Use at the End of Pytorch Training Loop
