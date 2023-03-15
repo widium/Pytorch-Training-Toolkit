@@ -7,6 +7,15 @@
 ![](https://i.imgur.com/VRCesZo.png)
 ***
 Use It in Pytorch Training Loop
+
+CLI :
+~~~bash
+!wget "https://raw.githubusercontent.com/widium/Historical_Training/main/Tracker.py"
+~~~
+Python :
+~~~python
+import wget wget.download("https://raw.githubusercontent.com/widium/Historical_Training/main/Tracker.py")
+~~~
 - **Initialize Instance** Before Loop :
 ~~~python
 from Tracker import HistoricalTraining
