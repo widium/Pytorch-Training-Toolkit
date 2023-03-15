@@ -1,7 +1,7 @@
-## Track And Analyze Training Process of Pytorch Model :
-- ### [Display Tracked Value While Loop](#display-tracked-information-in-history-while-training)
-- ### [Diagnostic Training Process](#diagnostic-training-process)
-- ### [Plot Training/Validation Curves](#plot-training--validation-curves)
+### Track And Analyze Training Process of Pytorch Model :
+- [Display Tracked Value While Training Loop](#display-tracked-information-in-history-while-training)
+- [Diagnostic Training Loop](#diagnostic-training-process)
+- [Plot Training/Validation Curves](#plot-training--validation-curves)
 ***
 ![](https://i.imgur.com/9IYr2DY.png)
 ![](https://i.imgur.com/VRCesZo.png)
