@@ -181,6 +181,8 @@ history.diagnostic(average=False, metric_name="F1")
 history.diagnostic(average=True, metric_name="F1")
 ~~~
 ![](https://i.imgur.com/F8sKjpR.png)
+### Returning Diagnostic
+![](https://i.imgur.com/raFosYA.png)
 ***
 ## Plot Training & Validation Curves 
 Use at the End of Pytorch Training Loop
