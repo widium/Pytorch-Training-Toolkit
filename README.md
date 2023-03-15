@@ -14,7 +14,9 @@ CLI :
 ~~~
 Python :
 ~~~python
-import wget wget.download("https://raw.githubusercontent.com/widium/Historical_Training/main/Tracker.py")
+import wget 
+
+wget.download("https://raw.githubusercontent.com/widium/Historical_Training/main/Tracker.py")
 ~~~
 - **Initialize Instance** Before Loop :
 ~~~python
