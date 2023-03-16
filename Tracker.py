@@ -6,7 +6,7 @@
 #    By: ebennace <ebennace@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 16:20:34 by ebennace          #+#    #+#              #
-#    Updated: 2023/03/15 16:20:56 by ebennace         ###   ########.fr        #
+#    Updated: 2023/03/16 07:24:52 by ebennace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ class HistoricalTraining(dict):
             
             # Print Epochs Value with Progress Rate
             if key == "Epochs":
-                percentage = ((current_epoch)* 100) / self.max_epochs
+                percentage = ((current_epoch + 1)* 100) / self.max_epochs
                 value = f"{percentage}% [{current_epoch + 1}/{self.max_epochs}]"
                 value = f"{value:<18}|"
 
