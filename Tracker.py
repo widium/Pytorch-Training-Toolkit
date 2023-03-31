@@ -1,17 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Tracker.py                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ebennace <ebennace@student.42lausanne.c    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/15 16:20:34 by ebennace          #+#    #+#              #
-#    Updated: 2023/03/16 07:24:52 by ebennace         ###   ########.fr        #
+#    tracker.py                                                                #
+#                                                                              #
+#    By: Widium <ebennace@student.42lausanne.ch>                               #
+#    Github : https://github.com/widium                                        #
+#                                                                              #
+#    Created: 2023/03/23 08:38:53 by Widium                                    #
+#    Updated: 2023/03/30 11:41:15 by Widium                                    #
 #                                                                              #
 # **************************************************************************** #
 
+from typing import List, Dict
 import numpy as np
 import matplotlib.pyplot as plt
+
+# ============================================================================== #
 
 class HistoricalTraining(dict):
     """Store, Diagnostic and Visualize all Data in Training Loop
@@ -19,8 +22,10 @@ class HistoricalTraining(dict):
     Args:
         dict : Heritage of Python Dictionary
     """
-    def __init__(self,
-                max_epochs : int):
+    
+# ============================================================================== #
+ 
+    def __init__(self, max_epochs : int):
         """Initialize Class with Maximum Epochs in Training Loop
            This will create a List of epochs for visualization
 
@@ -32,11 +37,13 @@ class HistoricalTraining(dict):
         self.max_epochs = max_epochs
         self["Epochs"] = list()
 
-    # ========================================================================================== #
+    # ============================================================================== #
         
-    def display_info(self, 
-                    current_epoch : int,
-                    reccurance : int=1):
+    def display_info(
+        self, 
+        current_epoch : int,
+        reccurance : int=1
+    )->None:
         """Display Information Sequentialy for each Epochs Like a Table
            Place this function in loop and set the reccurance for control print
            the width of print scale dynamically with name and nbr of Value to Track
@@ -50,7 +57,6 @@ class HistoricalTraining(dict):
 
         # ******************** Create Header ********************#
         
-        # Print the name of tracked value as Header
         if current_epoch == 0:
 
             headers = [f"{header:<18}|" for header in self.keys()]
@@ -60,7 +66,7 @@ class HistoricalTraining(dict):
             print(f"{'=' * self.nbrChar}")
         
         # ******************** Check Recurrance ********************#
-        # Print only reccurent epoch
+
         if (current_epoch % reccurance != 0):
             # Let pass the last epoch
             if (current_epoch + 1 == self.max_epochs):
@@ -70,10 +76,8 @@ class HistoricalTraining(dict):
         
         # ******************** Get Tracked Value ********************#
         
-        # Get the Last Value of Tracked Value and print them proprely
         lastValue = list()
 
-        # loop over each tracked value in Class Dictionary
         for key in self:
             
             # Print Epochs Value with Progress Rate
@@ -95,12 +99,14 @@ class HistoricalTraining(dict):
         print(*lastValue)
         print(f"{'-' * self.nbrChar}")
 
-    # ========================================================================================== #
+    # ============================================================================== #
     
-    def diagnostic(self,
-                    metric_name="Accuracy",
-                    average=False,
-                    returning=False):
+    def diagnostic(
+        self,
+        metric_name="Accuracy",
+        average=False,
+        returning=False,
+    )->Dict[str]:
         """Create and Visualize Diagnostic of Training Loop Tracked Value
            Computing Programatically OverFitting and UnderFitting (Bias & Variance)
            of Model Performance.
@@ -117,21 +123,19 @@ class HistoricalTraining(dict):
     
         # ******************** Setup Constant ********************#
         
-        # Setup Constant Different for Average Diagnostic
         if average == True:
             BIAS = 0.4 # below this value is High Bias
             LOW_BIAS = 0.65 # High Accuracy / Low Bias
 
         else :
-            BIAS = 0.80 # below this value is High Bias
-            LOW_BIAS = 0.95 # High Accuracy / Low Bias
+            BIAS = 0.80
+            LOW_BIAS = 0.95
 
         VARIANCE = 0.10 # above this value is High Variance
         LOW_VARIANCE = 0.05 # below this value is Low Variance
 
         # ******************** Recover Value ********************#
         
-        # remove maj for compare name
         metric_name = metric_name.lower()
 
         # Get the key of target metric name in Train and Validation Data
@@ -151,18 +155,28 @@ class HistoricalTraining(dict):
 
                     train_score_name = key
                     
-                    # Compute the mean of get the last value
+                    # Compute the mean or get the last value
                     if average == True:
                         train_score = np.mean(self[key])
                     else :
                         train_score = self[key][-1]
-
-        # ******************** Diagnostic Value ********************#
-
-        # Storage
-        status = dict()
+        
+        
+        self.diagnostic_results = dict()
         bias = list()
         variance = list()
+        
+        # ******************** Setup Name ********************#           
+        
+        if average == True:
+            score_type = "Average"
+        else :
+            score_type = "Last"
+
+        train_score_name = f"{score_type} {train_score_name}"
+        val_score_name = f"{score_type} {val_score_name}"
+        
+        # ******************** Diagnostic Value ********************#
 
         # Compute the Bias
         if (validation_score < BIAS):
@@ -191,48 +205,27 @@ class HistoricalTraining(dict):
             variance.append("Good Generalization !")  
         
         # Store Diagnostic in Dictionary
-        status["Bias and UnderFitting"] = bias
-        status["Variance and OverFitting"] = variance
-        status[train_score_name] = f"{train_score:.3f}"
-        status[val_score_name] = f"{validation_score:.3f}"
+        self.diagnostic_results["Bias and UnderFitting"] = bias
+        self.diagnostic_results["Variance and OverFitting"] = variance
+        self.diagnostic_results[train_score_name] = f"{train_score:.3f}"
+        self.diagnostic_results[val_score_name] = f"{validation_score:.3f}"
         
-        # Return Diagnostic Dictionary or Display Information
+        # Return Diagnostic Dictionary
         if (returning == True):
-            return (status)
-        
-        # ******************** Display Information ********************#
-        print(f"===== {'Average' if average == True else 'Last'} Diagnostic =====")
+            return (self.diagnostic_results)
 
-        print(f"\nBias and UnderFitting :\n")
-        for s in status["Bias and UnderFitting"]:
-            print(f"- {s}") 
-
-        print(f"\nVariance and OverFitting :\n")
-        for s in status["Variance and OverFitting"]:
-            print(f"- {s}") 
-
-        print(f"\nValue :\n")
-        if average == True:
-            print(f"Average {train_score_name} : {status[train_score_name]}")
-            print(f"Average {val_score_name} : {status[val_score_name]}")
-        else :
-            print(f"Last {train_score_name} : {status[train_score_name]}")
-            print(f"Last {val_score_name} : {status[val_score_name]}")
-        
-        print("=" * 40)
-        print("\n")
-
-    # ========================================================================================== #
+    # ============================================================================== #
     
-    def plot_curves(self,
-                    metric_name="Accuracy",
-                    loss_name="Loss"):
-        """Visualize Loss and Metric Curve 
-          for Target loss and Metric Tracked Value
+    def plot_curves(
+        self,
+        metric_name="Accuracy",
+        loss_name="Loss"
+    )->None:
+        """Visualize Loss and Metric Curve for Target loss and Metric Tracked Value
            
         Args:
-            metric_name (str, optional): Target Metric Name. Defaults to "Accuracy".
-            loss_name (str, optional): Target Loss Name. Defaults to "Loss".
+            `metric_name` (str, optional): Target Metric Name. Defaults to "Accuracy".
+            `loss_name` (str, optional): Target Loss Name. Defaults to "Loss".
         """
         
         # ******************** Get Target Tracked Value ********************#
@@ -268,7 +261,7 @@ class HistoricalTraining(dict):
         
         # ******************** Create Subplot ********************#
         
-        plt.figure(figsize=(20, 12))
+        fig = plt.figure(figsize=(20, 12))
 
         plt.subplot(1, 2, 1)
         plt.plot(self["Epochs"], train_loss, label=f"{train_loss_name}")
@@ -285,4 +278,7 @@ class HistoricalTraining(dict):
         plt.xlabel("Epochs", fontsize=15)
         plt.ylabel(f"Value of {metric_name.capitalize()}", fontsize=15)
         plt.legend()
-    # ========================================================================================== #
+        
+        self.curve_figure = fig
+    
+    # ============================================================================== #

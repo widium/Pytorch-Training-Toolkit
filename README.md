@@ -191,7 +191,6 @@ for epoch in range(NBR_EPOCHS):
 history.diagnostic(average=False, metric_name="F1")
 history.diagnostic(average=True, metric_name="F1")
 ~~~
-![](https://i.imgur.com/F8sKjpR.png)
 ### Returning Diagnostic
 ![](https://i.imgur.com/raFosYA.png)
 ***
@@ -250,3 +249,8 @@ for epoch in range(NBR_EPOCHS):
 history.plot_curves(loss_name="BCE", metric_name="F1")
 ~~~
 ![](https://i.imgur.com/6QkermH.png)
+### Recover `figure` 
+~~~python
+fig = history.curve_figure
+fig.savefig("your_path")
+~~~
