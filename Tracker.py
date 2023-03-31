@@ -55,7 +55,7 @@ class HistoricalTraining(dict):
 
         self["Epochs"].append(current_epoch)
 
-        # ******************** Create Header ********************#
+        # -------------------- Create Header --------------------#
         
         if current_epoch == 0:
 
@@ -65,7 +65,7 @@ class HistoricalTraining(dict):
             print(*headers)
             print(f"{'=' * self.nbrChar}")
         
-        # ******************** Check Recurrance ********************#
+        # -------------------- Check Recurrance --------------------#
 
         if (current_epoch % reccurance != 0):
             # Let pass the last epoch
@@ -74,7 +74,7 @@ class HistoricalTraining(dict):
             else:
                 return
         
-        # ******************** Get Tracked Value ********************#
+        # -------------------- Get Tracked Value --------------------#
         
         lastValue = list()
 
@@ -93,7 +93,7 @@ class HistoricalTraining(dict):
             
             lastValue.append(f"{value}")
         
-        # ******************** Display Tracked Value ********************#
+        # -------------------- Display Tracked Value --------------------#
         
         # Print Last Tracked Value and Separate them with new Line scaled with Header   
         print(*lastValue)
@@ -121,7 +121,7 @@ class HistoricalTraining(dict):
             dict: dictionary of diagnostic
         """
     
-        # ******************** Setup Constant ********************#
+        # -------------------- Setup Constant --------------------#
         
         if average == True:
             BIAS = 0.4 # below this value is High Bias
@@ -134,7 +134,7 @@ class HistoricalTraining(dict):
         VARIANCE = 0.10 # above this value is High Variance
         LOW_VARIANCE = 0.05 # below this value is Low Variance
 
-        # ******************** Recover Value ********************#
+        # -------------------- Recover Value --------------------#
         
         metric_name = metric_name.lower()
 
@@ -166,7 +166,7 @@ class HistoricalTraining(dict):
         bias = list()
         variance = list()
         
-        # ******************** Setup Name ********************#           
+        # -------------------- Setup Name --------------------#           
         
         if average == True:
             score_type = "Average"
@@ -176,7 +176,7 @@ class HistoricalTraining(dict):
         train_score_name = f"{score_type} {train_score_name}"
         val_score_name = f"{score_type} {val_score_name}"
         
-        # ******************** Diagnostic Value ********************#
+        # -------------------- Diagnostic Value --------------------#
 
         # Compute the Bias
         if (validation_score < BIAS):
@@ -228,7 +228,7 @@ class HistoricalTraining(dict):
             `loss_name` (str, optional): Target Loss Name. Defaults to "Loss".
         """
         
-        # ******************** Get Target Tracked Value ********************#
+        # -------------------- Get Target Tracked Value --------------------#
         
         # remove maj for compare name
         metric_name = metric_name.lower()
@@ -259,7 +259,7 @@ class HistoricalTraining(dict):
                     train_score_name = key
                     train_score = self[key]
         
-        # ******************** Create Subplot ********************#
+        # -------------------- Create Subplot --------------------#
         
         fig = plt.figure(figsize=(20, 12))
 
