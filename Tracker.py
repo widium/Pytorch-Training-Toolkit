@@ -106,7 +106,7 @@ class HistoricalTraining(dict):
         metric_name="Accuracy",
         average=False,
         returning=False,
-    )->Dict[str]:
+    )->Dict:
         """Create and Visualize Diagnostic of Training Loop Tracked Value
            Computing Programatically OverFitting and UnderFitting (Bias & Variance)
            of Model Performance.
