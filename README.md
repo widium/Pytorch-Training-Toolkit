@@ -10,17 +10,17 @@ Use It in Pytorch Training Loop
 
 CLI :
 ~~~bash
-!wget "https://raw.githubusercontent.com/widium/Historical_Training/main/history.py"
+!wget "https://raw.githubusercontent.com/widium/Historical_Training.git"
 ~~~
 Python :
 ~~~python
 import wget 
 
-wget.download("https://raw.githubusercontent.com/widium/Historical_Training/main/history.py")
+wget.download("https://raw.githubusercontent.com/widium/Historical_Training.git")
 ~~~
 - **Initialize Instance** Before Loop :
 ~~~python
-from history import HistoricalTraining
+from training_history.core import HistoricalTraining
 
 # create a HistoricalTraining instance
 history = HistoricalTraining(max_epochs=NBR_EPOCHS)
@@ -82,7 +82,7 @@ history.plot_curves(loss_name="BCE")
 
 - **Initialize** Instance Before Loop :
 ~~~python
-from history import HistoricalTraining
+from training_history.core import HistoricalTraining
 
 # create a HistoricalTraining instance
 history = HistoricalTraining(max_epochs=NBR_EPOCHS)
@@ -140,7 +140,7 @@ for epoch in range(NBR_EPOCHS):
 Use at the End or While Pytorch Training Loop
 -  **Initialize Instance** Before Loop :
 ~~~python
-from history import HistoricalTraining
+from training_history.core import HistoricalTraining
 
 # create a HistoricalTraining instance
 history = HistoricalTraining(max_epochs=NBR_EPOCHS)
@@ -198,7 +198,7 @@ history.diagnostic(average=True, metric_name="F1")
 Use at the End of Pytorch Training Loop
 - **Initialize Instance** Before Loop :
 ~~~python
-from history import HistoricalTraining
+from training_history.core import HistoricalTraining
 
 # create a HistoricalTraining instance
 history = HistoricalTraining(max_epochs=NBR_EPOCHS)

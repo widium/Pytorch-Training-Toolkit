@@ -1,15 +1,14 @@
 # *************************************************************************** #
 #                                                                              #
-#    history.py                                                                #
+#    core.py                                                                   #
 #                                                                              #
 #    By: Widium <ebennace@student.42lausanne.ch>                               #
 #    Github : https://github.com/widium                                        #
 #                                                                              #
-#    Created: 2023/03/23 08:38:05 by  Widium                                   #
-#    Updated: 2023/04/19 08:13:28 by Widium                                    #
+#    Created: 2023/03/23 08:38:00 by    Widium                                 #
+#    Updated: 2023/04/19 11:35:34 by Widium                                    #
 #                                                                              #
 # **************************************************************************** #
-
 
 from typing import List, Dict
 import numpy as np
