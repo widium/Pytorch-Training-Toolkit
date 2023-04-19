@@ -10,13 +10,13 @@ Use It in Pytorch Training Loop
 
 CLI :
 ~~~bash
-!wget "https://raw.githubusercontent.com/widium/Historical_Training.git"
+!wget "https://raw.githubusercontent.com/widium/Pytorch-Training-Toolkit.git"
 ~~~
 Python :
 ~~~python
 import wget 
 
-wget.download("https://raw.githubusercontent.com/widium/Historical_Training.git")
+wget.download("https://raw.githubusercontent.com/widium/Pytorch-Training-Toolkit.git")
 ~~~
 - **Initialize Instance** Before Loop :
 ~~~python
