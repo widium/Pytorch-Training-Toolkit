@@ -20,6 +20,8 @@ from tqdm.auto import tqdm
 
 from .utils import logits_to_class_integer
 
+# ============================================================================ #
+
 def evaluation_step(
     model: Module,
     data_loader : DataLoader,
@@ -85,3 +87,5 @@ def evaluation_step(
 
 
     return (avg_loss, avg_score)
+
+# ============================================================================ #

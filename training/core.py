@@ -23,6 +23,7 @@ from .evaluation import evaluation_step
 from .history import HistoricalTraining
 from .utils import logits_to_class_integer
 
+# ============================================================================ #
 
 def training_step(
     model: Module, 
@@ -100,6 +101,8 @@ def training_step(
     avg_score /= NBR_BATCH
 
     return (avg_loss, avg_score)
+
+# ============================================================================ #
 
 def train(
     model : Module,
@@ -180,3 +183,5 @@ def train(
     history.plot_curves()
 
     return (history)
+
+# ============================================================================ #

@@ -13,6 +13,8 @@
 import torch
 from torch import Tensor
 
+# ============================================================================ #
+
 def logits_to_class_integer(logits : Tensor)->Tensor:
     """Convert Logits to Class Integers for Binary or Multi Classification
 
@@ -36,3 +38,4 @@ def logits_to_class_integer(logits : Tensor)->Tensor:
     
     return (y_preds)
 
+# ============================================================================ #
