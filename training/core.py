@@ -86,7 +86,7 @@ def training_step(
         avg_score += score
         avg_loss += loss.item()
         
-        optimizer.zero_grad() # Compute Gradient and Make Backpropagation
+        optimizer.zero_grad() # Reset Gradient
 
         loss.backward() # Backpropagate the loss
 
@@ -178,7 +178,7 @@ def train(
 
     end_time = perf_counter()
     
-    history["Training Time"] = end_time-start_time
+    history["Training Time"] = end_time - start_time
     history.diagnostic()
     history.plot_curves()
 

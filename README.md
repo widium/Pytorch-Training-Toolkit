@@ -1,23 +1,35 @@
-### Track And Analyze Training Process of Pytorch Model :
+# Pytorch-Training-Toolkit
+- [Training Loop](#training-loop)
+- [HistoricalTraining](#historicaltraining)
+    - [Display Tracked Value While Training Loop](#display-tracked-information-in-history-while-training)
+    - [Diagnostic Training](#diagnostic-training)
+    - [Plot Training/Validation Curves](#plot-training--validation-curves)
+***
+## Training Loop
+- Train and Evaluate Model with Train and Test Dataloader 
+- Track and Analyze Data with `HistoricalTraining` instance (`history`)
+- for an example of utilisation got to -> [training.ipynb](/training.ipynb)
+~~~python
+history = train(
+    model=model,
+    train_dataloader=train_dataloader,
+    test_dataloader=test_dataloader,
+    optimizer=optimizer,
+    loss_function=loss_function,
+    metric_function=metric_function,
+    device=device,
+    epochs=5
+)
+~~~
+***
+## HistoricalTraining
 - [Display Tracked Value While Training Loop](#display-tracked-information-in-history-while-training)
 - [Diagnostic Training Loop](#diagnostic-training-process)
 - [Plot Training/Validation Curves](#plot-training--validation-curves)
 ***
-![](https://i.imgur.com/9IYr2DY.png)
+![](https://i.imgur.com/6AD6Tt9.png)
 ![](https://i.imgur.com/VRCesZo.png)
 ***
-Use It in Pytorch Training Loop
-
-CLI :
-~~~bash
-!wget "https://raw.githubusercontent.com/widium/Pytorch-Training-Toolkit.git"
-~~~
-Python :
-~~~python
-import wget 
-
-wget.download("https://raw.githubusercontent.com/widium/Pytorch-Training-Toolkit.git")
-~~~
 - **Initialize Instance** Before Loop :
 ~~~python
 from training_history.core import HistoricalTraining
@@ -136,7 +148,7 @@ for epoch in range(NBR_EPOCHS):
 ~~~
 ![](https://i.imgur.com/6AD6Tt9.png)
 ***
-## Diagnostic Training Process
+## Diagnostic Training
 Use at the End or While Pytorch Training Loop
 -  **Initialize Instance** Before Loop :
 ~~~python
@@ -152,7 +164,7 @@ history["Train F1Score"] = list()
 history["Validation F1Score"] = list()
 ~~~
 **Use** Instance method in Loop :
-- **`diagnostic()`** Compute and Display Diagnostic of Model (OverFitting and UnderFitting), 
+- **`diagnostic()`** Compute Diagnostic of Model (OverFitting and UnderFitting) and store in instance. 
 - **Give** at method the **Target metric** to Diagnostic `metric_name`
 ~~~python
 for epoch in range(NBR_EPOCHS):
@@ -189,10 +201,27 @@ for epoch in range(NBR_EPOCHS):
 
 # At the end of The loop Diagnostic and Visualize Training Process
 history.diagnostic(average=False, metric_name="F1")
-history.diagnostic(average=True, metric_name="F1")
 ~~~
-### Returning Diagnostic
-![](https://i.imgur.com/raFosYA.png)
+~~~python
+>>> history
+
+{'Epochs': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+ 'Train Loss': [0.53915702799956,
+                ...,
+                0.18948346860706805],
+ 'Train Accuracy': [0.7875,
+                    ...,
+                    0.9270833333333334],
+ 'Val Loss': [0.28438338860869405,
+              ...,
+              0.3194670816883445],
+ 'Val Accuracy': [0.8863636374473571,
+                  ...,
+                  0.9125],
+ 'Training Time': 50.151948901999276,
+ 'Bias and UnderFitting': ['Medium Bias'],
+ 'Variance and OverFitting': ['Low Variance', 'Good Generalization !']}
+~~~
 ***
 ## Plot Training & Validation Curves 
 Use at the End of Pytorch Training Loop
@@ -251,6 +280,6 @@ history.plot_curves(loss_name="BCE", metric_name="F1")
 ![](https://i.imgur.com/6QkermH.png)
 ### Recover `figure` 
 ~~~python
-fig = history.curve_figure
+fig = history["Curve Figure"]
 fig.savefig("your_path")
 ~~~
